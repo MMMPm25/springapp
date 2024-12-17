@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body class="bg-bluegray-900">
+  <div class="flex justify-content-center align-items-center min-h-screen blur">
+    <p-card styleClass="border-3 border-white" [style]="{width:'400px'}" [style]="{'background':'transparent'}">
+      <h1 class="text-center font-bold text-white"><p class="text-red-600 inline">R</p>egister</h1>
+      <form [formGroup]="postMusersForm"  >
+        <div class="field">
+          <label class="pi pi-user text-red-600 font-bold"for="mfullname"><p class="text-white inline">FullName</p></label>
+          <input pInputText class="w-full text-white" [style]="{'background':'transparent'}" id="mfullname" formControlName="mfullname" />
+          @if(fullname.invalid && (fullname.dirty || fullname.touched)){
+          <small class="block p-error">Full name is required</small>
+          }
+        </div>
+
+        <div class="field">
+          <label class="pi
+          pi-envelope text-red-600 font-bold" for="email"><p class="text-white inline">Email</p></label>
+          <input pInputText class="w-full text-white" [style]="{'background':'transparent'}" id="memail" formControlName="memail" />
+          @if(email.invalid && (email.dirty || email.touched)){
+          <small class="block p-error">
+            @if(email.hasError('required')){
+            <span>Email is requried</span>
+            }@else if(email.hasError('pattern')){
+            <span>Email is invalid</span>
+            }
+          </small>
+          }
+        </div>
+
+        <div class="field">
+          <label class="pi pi-lock text-red-600 font-bold" for="mpassword"><P class="text-white inline">Password</P></label>
+          <p-password formControlName="mpassword" [style]="{'background':'transparent'}" [feedback]="false" [toggleMask]="true" inputId="mpassword"
+          inputStyleClass="w-full text-white bg-bluegray-900" styleClass="w-full" />
+
+
+          @if(password.invalid && (password.dirty || password.touched)){
+          <small class="block p-error">Password is required</small>
+          }
+        </div>
+
+
+        <div class="field">
+          <label class="pi pi-key text-red-600 font-bold" for="confirmPassword"><p class="text-white inline">Confirm Password</p></label>
+          <p-password formControlName="confirmPassword" [style]="{'background':'transparent'}" [feedback]="false" [toggleMask]="true" inputId="confirmPassword"
+          inputStyleClass="w-full text-white bg-bluegray-900" styleClass="w-full" />
+
+          @if(confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)){
+          <small class="block p-error">Confirm Password is required</small>
+          }
+          @if(postMusersForm.hasError('passwordMismatch')&& password.valid && confirmPassword.valid){
+          <small class="block p-error">Password mismatch</small>
+          }
+
+        </div>
+
+        <button pButton type="submit" label="SIGN UP" class="w-full  p-button-danger " (click) = "postMuser()"  [disabled]="postMusersForm.invalid" ></button>
+        <p-button label="BACK" styleClass="w-full p-button-secondary mt-3" routerLink="/first"
+        [ngStyle]="{backgroundColor:'surface-900'}"></p-button>
+        <div class="mt-2 text-white font-bold">Already a Login? <a class="no-underline text-red-500 font-bold " routerLink="/login"> Login</a></div>
+<!--สิ่งที่ต้องเพิ่ม ทำ pageing(เพิ่มเติม) Deadline Monday เรื่องเวลาต้องรอดูอีกที
+1.Register
+  -แก้ไขการกันชื่อและอีเมลซ้ำในระบบ
+  -แก้ไขเรื่อง รหัสผ่านจะต้องสามารถเพิ่มอักขระได้และ ถ้ารหัสผ่านไม่มากกว่า 6 ตัวขึ้นไป
+2.Home
+  -แก้เรื่อง ช่อง ราคา ให้ ห้ามใส่ ตัวหนังสือ ใส่ได้แค่ตัวเลข
+  -ทำ Valid ตอนที่ใส่ข้อมูลไม่ครบ ถ้าไม่ครบจะกดไม่ได้
+  -แก้เรื่อง ตอน Edit จะต้องไม่แสดงข้อมูลที่เรากรอกไปแล้ว มันจะแสดงผลตาม
+  -เพิ่มเรื่องของ รูปภาพ หมวดหมู่ ต่างๆ
+  -ทำ sort Dropdown เรื่องของราคา สมมติ ถ้ากด ตัวมากกว่า 100 บาท จะแสดงสินค้าที่ราคาเท่านั้น หรือต่ำกว่า 100
+  -ทำ sort Dropdown เรื่อง หมวดหมู่ ได้
+3.Admin หรือ User
+  -ให้แก้ไขเรื่องของ การแก้ไข(Edit) ให้แก้ไข ได้
+-->
+      </form>
+    </p-card>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body >
+  <p-menubar [model]="menu" [style]="{'background':'transparent'}" class="layout-topbar" styleClass="text-white">
+    <ng-template pTemplate="start">
+      <img src="/assets/img/ajs.png" height="40" class="mr-2">
+    </ng-template>
+
+    <ng-template pTemplate="end">
+
+
+      <button pButton label="Logout" [rounded]="true" icon="pi pi-sign-out" class="bg-red-700 p-button-secondary"
+        (click)="logout()"></button>
+    </ng-template>
+  </p-menubar>
+
+  <div class="td">
+    <p-card styleClass="m-5 text-2xl max-h-25rem" [style]="{'background':'transparent'}">
+      <div class="grid">
+        <div class="sm:col-12 md:col-8 lg:col-10">
+          <h1 class="font-bold sm:text-center md:text-left lg:text-left sm:text-2xl md:text-4xl lg:text-6xl text-white ml-3">Welcome Mr. <p
+              class="text-red-500 inline">{{ display }}</p>
+          </h1>
+          <p class="ml-3 text-lg sm:text-center md:text-left lg:text-left text-white">
+            This page just design by PrimeNG and Angular.
+          </p>
+        </div>
+        <div class="col text-center">
+          <img src='/assets/img/ia.png' width="100" class="sm:w-6,h-5rem md:w-6 lg:w-8 ">
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+
+  <div class="m-auto bd">
+
+    <h1 class="text-white pt-8 text-center">THE <p class="text-red-500 inline font-bold">CATS</p>
+    </h1>
+    <div
+      class=" flex flex-wap py-8 flex-wrap gap-8 justify-content-center align-items-center inline">
+
+
+      <p-card header="Advanced Card" styleClass="hover:shadow-8 " subheader="Card Subheader"
+        [style]="{ width: '360px' }">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="/assets/img/babycat.jpg" class="max-h-12rem" />
+        </ng-template>
+        <p>
+          Lorem ipsum dolor sit amet...
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="flex gap-3 mt-1">
+
+            <button pButton label="Let go" class="w-full  p-button-danger" styleClass="w-full" routerLink="/detail" ></button>
+          </div>
+        </ng-template>
+      </p-card>
+
+
+      <p-card header="Advanced Card" styleClass="hover:shadow-8 " subheader="Card Subheader"
+        [style]="{ width: '360px' }">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="/assets/img/Famcat.jpg" class="max-h-12rem" />
+        </ng-template>
+        <p>
+          Lorem ipsum dolor sit amet...
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="flex gap-3 mt-1">
+
+            <button pButton label="View" class="w-full  p-button-danger" styleClass="w-full" routerLink="/detail"></button>
+          </div>
+        </ng-template>
+      </p-card>
+
+      <p-card header="Advanced Card" styleClass="hover:shadow-8 " subheader="Card Subheader"
+        [style]="{ width: '360px' }">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="/assets/img/sleepcat.jpg" class="max-h-12rem" />
+        </ng-template>
+        <p>
+          Lorem ipsum dolor sit amet...
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="flex gap-3 mt-1">
+
+            <button pButton label="Enter" class="w-full  p-button-danger" styleClass="w-full" routerLink="/detail"></button>
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+
+
+  <div class="m-8 grid bg-white border-round-2xl">
+    <div class="sm:col-12 md:col-12 lg:col-4  ">
+      <img src="/assets/img/tcat.jpeg" width="500" class="shadow-5 ">
+    </div>
+    <div class="sm:col-12 md:col-12 lg:col-6 ml-4">
+      <h3 class="font-bold">เตรียมพร้อมเลี้ยงสัตว์ <p class="text-red-500 inline">Purina</p> คนอยากเลี้ยงแมวและสุนัขต้องรู้!</h3>
+      <p>การหาเพื่อนรักตัวใหม่มาเลี้ยงเป็นเรื่องตื่นเต้น!
+        ถ้าคุณกำลังหาสายพันธุ์สุนัขและแมวที่ใช่อยากรู้ค่าใช้จ่ายที่ต้องเตรียมตัว
+        พร้อมข้อดีของแมวและสุนัขแต่ละสายพันธุ์หรือถ้ายังไม่แน่ใจว่าจะเลี้ยงสายพันธุ์ไหนดี
+        เรามีคำแนะนำจากผู้เชี่ยวชาญมาไขคำตอบทุกข้อสงสัย</p>
+    </div>
+
+
+  </div>
+  <hr class="m-8 border-top-2 border-red-600 bg-red-600">
+  <div class="m-8 grid bg-white border-round-2xl">
+    <div class="sm:col-12 md:col-12 lg:col-7  ml-4 s">
+      <h3 class="font-bold">อาหารแมวพรีเมี่ยม จาก<p class="text-red-500 inline">Purina</p>
+      </h3>
+      <p>หากคุณอยากเลี้ยงแมวแต่ไม่รู้ว่าสายพันธุ์แมวไหนที่เหมาะกับคุณและครอบครัว ใช่หรือเปล่า?
+        มาดูแหล่งข้อมูลสายพันธุ์แมวของเรา ที่จะทำให้คุณเข้าใจความแตกต่างของแต่ละสายพันธุ์
+        และช่วยเลือกสายพันธุ์ที่เข้ากับคุณให้ได้มากที่สุด คุณจะได้ข้อมูลทั้งประวัติความเป็นมา
+        ลักษณะนิสัยของแมวแต่ละสายพันธุ์ และเข้าใจปัญหาด้านสุขภาพ วิธีการดูแล รวมถึงสารอาหารที่แมวสายพันธุ์แมวนั้น ๆ
+        ต้องการ</p>
+    </div>
+    <div class="sm:col-12 md:col-12 lg:col-4  ">
+      <img src="/assets/img/sc.jpeg" width="500" class="shadow-5 ">
+    </div>
+  </div>
+
+  <div class="card m-auto">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+
+  <!-- <div class="card text-center">
+    <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
+        <p-toast />
+        <p-speedDial [model]="items" direction="up" />
+        <p-speedDial [model]="items" direction="down" />
+        <p-speedDial [model]="items" direction="left" />
+        <p-speedDial [model]="items" direction="right" />
+    </div>
+</div> -->
+  <p-stepper>
+    <p-stepperPanel header="Header I">
+      <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
+        <div class="flex flex-column h-12rem">
+          <div
+            class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+            <img src="/assets/img/tcat.jpeg">
+          </div>
+        </div>
+        <div class="flex pt-4 justify-content-end">
+          <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header="Header II">
+      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+        let-index="index">
+        <div class="flex flex-column h-12rem">
+          <div
+            class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+            Content II
+          </div>
+        </div>
+        <div class="flex pt-4 justify-content-between">
+          <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
+          <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextCallback.emit()" />
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header="Header III">
+      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
+        <div class="flex flex-column h-12rem">
+          <div
+            class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+            Content III
+          </div>
+        </div>
+        <div class="flex pt-4 justify-content-start">
+          <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" />
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+  </p-stepper>
+  <p-scrollTop styleClass="bg-red-600"/>
+  <footer class="bg-bluegray-900 text-white text-center pt-3">
+    <div class="flex gap-2 justify-content-center pb-2">
+      <i class="pi pi-facebook text-4xl"></i>
+      <i class="pi pi-youtube text-4xl"></i>
+      <i class="pi pi-prime text-4xl"></i>
+      <i class="pi pi-amazon text-4xl"></i>
+    </div>
+    <div class="flex gap-2 justify-content-center">
+      <p>Privacy Policy</p>
+      <p>Terms of use</p>
+      <p>Our Company</p>
+
+    </div>
+    <p><img src="/assets/img/c.png" width="20" class="text-white bg-white">It a footer.</p>
+  </footer>
+
+</body>
+
+</html>

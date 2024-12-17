@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <p-menubar [model]="menu" class="layout-topbar" styleClass="border-2 text-white bg-bluegray-900" >
+    <ng-template pTemplate="start" >
+        <img src="/assets/img/ajs.png" height="40" class="mr-2">
+    </ng-template>
+
+    <ng-template pTemplate="end">
+
+    <button pButton label="Sign In" [rounded]="true" icon="pi pi-sign-in" class="p-button-secondary text-red-600 p-button-text mr-2" routerLink="/login"></button>
+    <button pButton label="Sign Up" [rounded]="true" icon="pi pi-user-plus" class="bg-red-700 p-button-secondary" routerLink="/register"></button>
+    </ng-template>
+  </p-menubar>
+
+  <div class="bgimg-text mt-8">
+
+    <h1 class="mt-4 pb-5 pl-5 font-bold text-bluegray-100 border-left-3 border-bottom-3 text-7xl ">Welcome to Web CRUD <p class="text-red-600 inline">A</p>ngular<i class="ml-5 pi pi-spin pi-cog text-red-600" style="font-size: 5rem"></i></h1>
+
+  </div>
+
+
+  <footer>
+
+  </footer>
+
+
+</body>
+
+</html>
+

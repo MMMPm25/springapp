@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body class="bg-bluegray-900">
+  <div class="flex justify-content-center align-items-center min-h-screen blur">
+    <p-card styleClass="border-3 border-white" [style]="{width:'400px'}" [style]="{'background':'transparent'}">
+      <h1 class="text-center font-bold text-white"><p class="text-red-600 inline">Update</p>Product</h1>
+      <form [formGroup]="updateMproductForm">
+        <div class="field">
+          <label class="pi pi-file-o text-red-600 font-bold"for="mpname"><p class="text-white inline">Product Name</p></label>
+          <input pInputText class="w-full text-white" [style]="{'background':'transparent'}" id="mpname" formControlName="mpname" />
+          @if(mpname.invalid && (mpname.dirty || mpname.touched)){
+          <small class="block p-error">Product name is required</small>
+          }
+        </div>
+        <div class="field">
+          <label for="mcate" class="pi pi-list text-red-600 font-bold w-full">
+            <p class="text-white inline">Category</p>
+          </label>
+          <p-dropdown
+            [options]="categories"
+            formControlName="mcate"
+            placeholder="Select a category"
+            styleClass="w-full text-white"
+            [style]="{'background':'transparent'}">
+          </p-dropdown>
+          <div *ngIf="mcate.invalid && (mcate.dirty || mcate.touched)" class="p-error">
+            <small *ngIf="mcate.hasError('required')">Category is required.</small>
+          </div>
+        </div>
+        <div class="field">
+          <label class="pi
+          pi-dollar text-red-600 font-bold" for="email"><p class="text-white inline">Price</p></label>
+          <input pInputText class="w-full text-white" [style]="{'background':'transparent'}" id="mprice" formControlName="mprice" />
+          @if(mprice.invalid && (mprice.dirty || mprice.touched)){
+          <small class="block p-error">
+            @if(mprice.hasError('required')){
+            <span>Price is requried</span>
+            }@else if(mprice.hasError('pattern')){
+            <span>Price is invalid</span>
+            }
+          </small>
+          }
+        </div>
+
+        <div class="field">
+          <label class="pi
+          pi-calendar w-full text-red-600 font-bold" for="icon"><p class="text-white inline">Calendar</p></label>
+          <p-calendar  [(ngModel)]="value" [showIcon]="true" id="mcal" formControlName="mcal" inputId="icon"></p-calendar>
+      </div>
+
+      <div class="field text-red-600 pi pi-image">
+        <label class="text-white font-bold">Upload Image</label>
+        <input type="file" (change)="onFileSelected($event)" />
+        <div *ngIf="updateMproductForm.get('mimage')?.value">
+          <img [src]="updateMproductForm.get('mimage')?.value" alt="Product Image" class="product-image" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="text-red-600 pi pi-list-check block"><p class="text-white inline font-bold">Genres</p></label>
+        <label>
+          <input type="checkbox" formControlName="drama" />
+          <span class="checkbox-label text-white">Drama</span>
+        </label>
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          <input type="checkbox" formControlName="comedy" />
+          <span class="checkbox-label text-white">Comedy</span>
+        </label>
+      </div>
+
+      <div class="field">
+        <label>
+          <input type="checkbox" formControlName="scifi" />
+          <span class="checkbox-label text-white">Scifi</span>
+        </label>
+      </div>
+
+      <div class="field">
+        <label>
+          <input type="checkbox" formControlName="fantasy" />
+          <span class="checkbox-label text-white">Fantasy</span>
+        </label>
+      </div>
+
+      <div class="field">
+        <label>
+          <input type="checkbox" formControlName="adventure" />
+          <span class="checkbox-label text-white">Adventure</span>
+        </label>
+      </div>
+
+
+
+
+        <div class="field mt-2 pi pi-info-circle text-red-600">
+          <label class="text-white font-bold">Select Product Type:</label>
+          <div class="flex gap-3 mt-2">
+            <!-- RadioButton 1 -->
+            <label class="text-white">
+              <input
+                type="radio"
+                name="productType"
+                [value]="'Enabled'"
+                formControlName="productType"
+              />
+              <span class="ml-2">Enabled</span>
+            </label>
+
+            <!-- RadioButton 2 -->
+            <label class="text-white">
+              <input
+                type="radio"
+                name="productType"
+                [value]="'Disabled'"
+                formControlName="productType"
+              />
+              <span class="ml-2">Disabled</span>
+            </label>
+          </div>
+        </div>
+        <button pButton type="submit" label="Update" class="w-full p-button-danger" (click)="updateMproduct()" [disabled]="updateMproductForm.invalid"></button>
+        <p-button label="BACK" styleClass="w-full p-button-secondary mt-3" routerLink="/products"
+        [ngStyle]="{backgroundColor:'surface-900'}"></p-button>
+
+<!--สิ่งที่ต้องเพิ่ม ทำ pageing(เพิ่มเติม) Deadline Monday เรื่องเวลาต้องรอดูอีกที
+1.Register
+  -แก้ไขการกันชื่อและอีเมลซ้ำในระบบ
+  -แก้ไขเรื่อง รหัสผ่านจะต้องสามารถเพิ่มอักขระได้และ ถ้ารหัสผ่านไม่มากกว่า 6 ตัวขึ้นไป
+2.Home
+  -แก้เรื่อง ช่อง ราคา ให้ ห้ามใส่ ตัวหนังสือ ใส่ได้แค่ตัวเลข
+  -ทำ Valid ตอนที่ใส่ข้อมูลไม่ครบ ถ้าไม่ครบจะกดไม่ได้
+  -แก้เรื่อง ตอน Edit จะต้องไม่แสดงข้อมูลที่เรากรอกไปแล้ว มันจะแสดงผลตาม
+  -เพิ่มเรื่องของ รูปภาพ หมวดหมู่ ต่างๆ
+  -ทำ sort Dropdown เรื่องของราคา สมมติ ถ้ากด ตัวมากกว่า 100 บาท จะแสดงสินค้าที่ราคาเท่านั้น หรือต่ำกว่า 100
+  -ทำ sort Dropdown เรื่อง หมวดหมู่ ได้
+3.Admin หรือ User
+  -ให้แก้ไขเรื่องของ การแก้ไข(Edit) ให้แก้ไข ได้
+-->
+      </form>
+    </p-card>
+  </div>
+</body>
+
+</html>
+
+

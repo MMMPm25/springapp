@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body class="bg-bluegray-900">
+  <div class="flex justify-content-center align-items-center min-h-screen blur">
+    <p-card styleClass="border-3 border-white" [style]="{width:'400px'}" [style]="{'background':'transparent'}">
+      <h1 class="text-center font-bold text-white">
+        <p class="text-red-600 inline">Add</p>Product
+      </h1>
+      <form [formGroup]="postMproductForm">
+        <div class="field">
+          <label class="pi
+          pi-file-o text-red-600 font-bold" for="mpname">
+            <p class="text-white inline">Product Name</p>
+          </label>
+          <input pInputText class="w-full text-white" [style]="{'background':'transparent'}" id="mpname"
+            formControlName="mpname" />
+          @if(mpname.invalid && (mpname.dirty || mpname.touched)){
+          <small class="block p-error">Product name is required</small>
+          }
+        </div>
+        <!-- <div class="field">
+          <label class="pi
+          pi-envelope text-red-600 font-bold" for="email"><p class="text-white inline">Category</p></label>
+          <input pInputText class="w-full text-white" [style]="{'background':'transparent'}" id="mcate" formControlName="mcate" />
+          @if(mcate.invalid && (mcate.dirty || mcate.touched)){
+          <small class="block p-error">
+            @if(mcate.hasError('required')){
+            <span>Category is requried</span>
+            }@else if(mcate.hasError('pattern')){
+            <span>Category is invalid</span>
+            }
+          </small>
+          }
+        </div> -->
+
+        <div class="field">
+          <label for="mcate" class="pi
+          pi-list text-red-600 font-bold text-red-600 font-bold w-full">
+            <p class="text-white inline">Category</p>
+          </label>
+          <p-dropdown [options]="categories" formControlName="mcate" placeholder="Select a category"
+            styleClass="w-full text-white bg-bluegray-900">
+          </p-dropdown>
+
+        </div>
+
+        <div class="field">
+          <label class="pi
+          pi-dollar text-red-600 font-bold" for="email">
+            <p class="text-white inline">Price</p>
+          </label>
+          <input pInputText class="w-full text-white" [style]="{'background':'transparent'}" id="mprice"
+            formControlName="mprice" />
+          @if(mprice.invalid && (mprice.dirty || mprice.touched)){
+          <small class="block p-error">
+            @if(mprice.hasError('required')){
+            <span>Price is requried</span>
+            }@else if(mprice.hasError('pattern')){
+            <span>Price is invalid</span>
+            }
+          </small>
+          }
+        </div>
+
+
+
+        <div class="field">
+          <label class="pi
+          pi-calendar w-full text-red-600 font-bold" for="icon"><p class="text-white inline">Calendar</p></label>
+          <p-calendar [(ngModel)]="value" [showIcon]="true" formControlName="mcal" inputId="icon"></p-calendar>
+      </div>
+
+      <!-- <div class="field">
+        <label class="text-red-600 font-bold w-full">Choose Product Type</label>
+        <div class="flex gap-1">
+
+          <label class="text-white">
+            <input type="radio" name="productType" formControlName="mra" >
+            <span class="ml-2">Enabled</span>
+          </label>
+
+
+          <label class="text-white">
+            <input type="radio" name="productType"  >
+            <span class="ml-2">Unenabled</span>
+          </label>
+
+        </div>
+
+      </div> -->
+
+
+        <!-- Upload Image -->
+        <div class="field text-red-600 pi pi-image">
+          <label class="text-white font-bold">Upload Image</label>
+          <input class="text-white" type="file" (change)="onFileSelected($event)">
+        </div>
+
+
+
+        <div class="field ">
+          <label class="text-red-600 pi pi-list-check block"><p class="text-white inline font-bold">Genres</p></label>
+          <label >
+            <input type="checkbox" formControlName="drama" />
+            <span class="checkbox-label text-white">Drama</span>
+          </label>
+        </div>
+
+        <!-- Checkbox for Comedy -->
+        <div class="field">
+          <label>
+            <input type="checkbox" formControlName="comedy" />
+            <span class="checkbox-label text-white">Comedy</span>
+          </label>
+        </div>
+
+        <div class="field">
+          <label>
+            <input type="checkbox" formControlName="scifi" />
+            <span class="checkbox-label text-white">Scifi</span>
+          </label>
+        </div>
+
+        <div class="field">
+          <label>
+            <input type="checkbox" formControlName="fantasy" />
+            <span class="checkbox-label text-white">Fantasy</span>
+          </label>
+        </div>
+
+        <div class="field">
+          <label>
+            <input type="checkbox" formControlName="adventure" />
+            <span class="checkbox-label text-white">Adventure</span>
+          </label>
+        </div>
+
+
+        <div class="field mt-2 pi pi-info-circle text-red-600">
+          <label class="text-white font-bold">Select Product Type:</label>
+          <div class="flex gap-3 mt-2">
+            <!-- RadioButton 1 -->
+            <label class="text-white">
+              <input
+                type="radio"
+                name="productType"
+                [value]="'Enabled'"
+                formControlName="productType"
+              />
+              <span class="ml-2">Enabled</span>
+            </label>
+
+            <!-- RadioButton 2 -->
+            <label class="text-white">
+              <input
+                type="radio"
+                name="productType"
+                [value]="'Disabled'"
+                formControlName="productType"
+              />
+              <span class="ml-2">Disabled</span>
+            </label>
+          </div>
+        </div>
+
+
+
+
+        <button pButton type="submit" label="Add" class="w-full  p-button-danger " (click)="postMproduct()"
+          [disabled]="postMproductForm.invalid"></button>
+        <p-button label="BACK" styleClass="w-full p-button-secondary mt-3" routerLink="/products"
+          [ngStyle]="{backgroundColor:'surface-900'}"></p-button>
+
+
+      </form>
+    </p-card>
+  </div>
+</body>
+
+</html>

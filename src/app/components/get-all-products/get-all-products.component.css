@@ -1,0 +1,125 @@
+html {
+  margin:0;
+  padding:0;
+}
+.fixed-size-image {
+  width: 300px; /* ความกว้างคงที่ */
+  height: auto; /* อัตราส่วนภาพ */
+  transform-origin: 0 0; /* จุดเริ่มต้นของการแปลง */
+  transform: scale(1); /* ป้องกันการเปลี่ยนขนาด */
+}
+/* Mobile view - small devices */
+@media (max-width: 768px) {
+  .grid {
+    padding: 0.5rem;
+  }
+
+  /* ปรับ Toolbar */
+  .p-toolbar-group-start,
+  .p-toolbar-group-center,
+  .p-toolbar-group-end {
+    display: block;
+    text-align: center;
+  }
+
+  /* ปรับ search container */
+  .search-container,
+  .sort-container {
+    text-align: center;
+  }
+
+  /* ปรับ Button ให้มีพื้นที่มากขึ้น */
+  .p-button {
+    font-size: 0.8rem;
+  }
+
+  /* แก้ไขตารางที่ยาวเกินไป */
+  .p-table {
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+/* Tablet & Desktop view */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .grid {
+    padding: 1rem 2rem;
+  }
+
+  .search-container,
+  .sort-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .p-table {
+    max-width: 100%;
+  }
+
+  .p-button {
+    font-size: 1rem;
+  }
+}
+
+/* Desktop Styling */
+@media (min-width: 1024px) {
+  .grid {
+    padding: 2rem;
+  }
+
+  .search-container,
+  .sort-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .p-table {
+    max-width: 100%;
+  }
+}
+/* Base Styles */
+body {
+  font-family: Arial, sans-serif;
+}
+
+.p-toolbar,
+.p-table {
+  width: 100%;
+}
+
+/* ปรับขนาดปุ่มให้เหมาะสม */
+.p-button {
+  margin: 0.3rem;
+  padding: 0.5rem 1rem;
+}
+
+/* สำหรับช่องค้นหา */
+.w-full {
+  width: 100%;
+}
+
+/* Default mobile view adjustments */
+.grid,
+.col-12 {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+}
+
+.search-container,
+.sort-container {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* ปรับตารางข้อมูลให้ Scrollable บนมือถือ */
+.p-table {
+  overflow-x: auto;
+  display: block;
+}
+.fixed-size-image {
+  width: 300px; /* กำหนดความกว้างคงที่ */
+  height: 300px; /* กำหนดความสูงคงที่ */
+  object-fit: cover; /* ปรับการแสดงรูปให้อยู่ภายในกรอบและไม่ยืดหรือบิด */
+  border-radius: 4px; /* ถ้าต้องการมุมโค้ง */
+}
+

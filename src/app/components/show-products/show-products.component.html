@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .zoom {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .zoom:hover {
+    transform: scale(1.05); /* ลดขนาดลง 10% */
+
+  }
+  .text-green{
+    color: rgb(0, 255, 0);
+    font-weight: bold;
+  }
+  .product-image {
+
+    max-width: 100%; /* ขยายภาพให้เต็ม container */
+
+  border-radius: 10px; /* ปรับความมนของมุมภาพ */
+  object-fit: cover; /* ปรับให้รูปภาพแสดงเต็มพื้นที่ (ใช้ได้เมื่อ height ถูกกำหนด) */
+}
+</style>
+<body class="bg-bluegray-900">
+  <p-toolbar styleClass="bg-bluegray-900 opacity-90">
+    <div class="p-toolbar-group-start">
+      <h5 class="text-white font-bold text-xl"><i class="pi pi-user font-bold mr-2" style="font-size: 2rem"></i>{{ display }}
+      </h5>
+    </div>
+    <div class="p-toolbar-group-center">
+      <button
+        class="p-link inline flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
+        <a routerLink="/home" class="pi pi-shopping-cart text-2xl text-red-500 no-underline"></a>
+      </button>
+      <button
+        class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
+        <a routerLink="/user" class="pi pi-users text-2xl text-gray-500 no-underline"></a>
+      </button>
+      <button
+        class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
+        <a routerLink="/admin" class="pi pi-user text-2xl text-gray-500 no-underline"></a>
+      </button>
+
+    </div>
+    <div class="p-toolbar-group-end ">
+
+
+      <button pButton class="p-button-danger text-xl font-bold border-round-2xl" (click)="logout()"><i
+          class="pi pi-sign-out f-bold"></i></button>
+
+    </div>
+  </p-toolbar>
+
+
+  <div class="grid mt-3">
+    <div class="col-12 block">
+      <p-card styleClass="bg-bluegray-900 border-1 border-white mb-2">
+
+        <label for="exampleInputEmail1" class="pi pi-search form-label text-red-600 font-bold text-2xl ">
+          <p class="text-white inline ml-2">Search</p>
+        </label>
+        <input pInputText [(ngModel)]="searchQuery" (input)="filterProducts()"
+          class="w-full border-1 text-white bg-bluegray-900" id="exampleInputEmail1">
+
+
+      </p-card>
+      <div class="search-container mt-3 mx-4 inline">
+        <!-- Dropdown สำหรับเลือกช่วงราคา -->
+        <label class="text-red-600 font-bold text-lg">Filter by Price:</label>
+        <select [(ngModel)]="selectedPriceRange" (change)="filterProducts()" class="ml-2 p-inputtext">
+          <option value="">All Prices</option>
+          <option value="less100">Less than 100</option>
+          <option value="less500">Less than 500</option>
+          <option value="less1000">Less than 1,000</option>
+          <option value="1000up">1000 equals or more</option>
+        </select>
+      </div>
+
+      <div class="sort-container mt-3 inline">
+        <!-- Dropdown สำหรับเลือก Sort by Category -->
+        <label class="text-red-600 font-bold text-lg">Sort by Category:</label>
+        <select [(ngModel)]="selectedCategorySort" (change)="filterProducts()" class="ml-2 p-inputtext">
+          <option value="">All Categories</option>
+          <option *ngFor="let category of uniqueCategories" [value]="category">
+            {{ category }}
+          </option>
+        </select>
+      </div>
+      <div class="mt-3 text-center inline mx-3">
+        <button
+          pButton
+          class="p-button-secondary bg-bluegray-800 text-red-600 p-button-text pi pi-refresh"
+          (click)="resetFilters()"
+        >
+
+        </button>
+      </div>
+      <div class="mt-3 text-center inline mx-3">
+        <button
+          pButton
+          class="p-button-danger"
+          routerLink="/products"
+        >
+          Data
+        </button>
+      </div>
+      <p-card styleClass="bg-bluegray-900 border-2 border-white">
+
+        <div class="border-bottom-3 border-white">
+          <div class="pi pi-list col-10 text-red-500 font-bold text-2xl ">
+            <p class="text-white inline ml-2 ">Product List</p>
+          </div>
+          <!-- <div class="col-2 pl-8 text-right inline">
+            <button pButton routerLink="/addproduct"
+              class="p-button-text font-bold text-red-600 text-lg bg-white border-round-2xl"><i
+                class="pi pi-user-plus font-bold mr-2"></i>Add </button>
+          </div> -->
+        </div>
+
+
+
+        <div class="grid mt-3">
+          <div *ngFor="let item of paginatedProducts" class="col-12 md:col-4 lg:col-3 p-2 zoom">
+            <p-card styleClass="bg-bluegray-900 border-1 border-white">
+              <div class="card-header">
+                <h3 class="text-white">{{ item.mpname }}</h3>
+                <p class="text-gray-400">{{ item.mcate }}</p>
+              </div>
+              <div class="card-body text-center">
+                <img [src]="item.mimage" alt="Product Image" width="300" height="300" class="col-12 md:col-12 lg:col-12 p-2 product-image border-round mb-3" />
+                <p class="text-red-500 font-bold">{{ item.mprice | currency }}</p>
+                <p class="text-gray-300">{{ item.mcal }}</p>
+                <div>
+                  <ng-container *ngIf="item.selectedGenres && item.selectedGenres.length > 0; else noGenres">
+                    <span *ngFor="let genre of item.selectedGenres" class="badge bg-red-500 text-white mx-1 border-round mb-3 p-1">
+                      {{ genre }}
+                    </span>
+                  </ng-container>
+                  <ng-template #noGenres>
+                    <span class="badge bg-gray-400 text-white mx-1 border-round mb-3 p-1">No Genres</span>
+                  </ng-template>
+                </div>
+                <p class="mt-2"[ngClass]="{'text-green': item.productType === 'Enabled'}">{{ item.productType }}</p>
+              </div>
+              <!-- <div class="card-footer text-center">
+                <button pButton class="p-button-text bg-yellow-400 text-white border-round-2xl"
+                  routerLink="/products/{{ item.id }}">
+                  <i class="pi pi-pen-to-square text-md"></i> Edit
+                </button>
+                <button pButton class="p-button-danger text-xl border-round-2xl" (click)="deleteMproduct(item.id)">
+                  <i class="pi pi-user-minus me-2 fs-5"></i> Delete
+                </button>
+              </div> -->
+            </p-card>
+          </div>
+        </div>
+
+        <div class="pagination-container mt-3 text-center">
+          <!-- ปุ่ม Previous -->
+          <button
+            pButton
+            class="p-button-secondary"
+            [disabled]="currentPage === 1"
+            (click)="changePage(currentPage - 1)"
+          >
+            Previous
+          </button>
+
+          <!-- แสดงหมายเลขหน้า -->
+          <ng-container *ngFor="let page of pages">
+            <button
+              pButton
+              class="p-button-text"
+              [class]="page === currentPage ? 'p-button-danger' : 'p-button-secondary'"
+              (click)="setPage(page)"
+            >
+              {{ page }}
+            </button>
+          </ng-container>
+
+          <!-- ปุ่ม Next -->
+          <button
+            pButton
+            class="p-button-secondary"
+            [disabled]="currentPage === totalPages"
+            (click)="changePage(currentPage + 1)"
+          >
+            Next
+          </button>
+        </div>
+      </p-card>
+
+    </div>
+  </div>
+</body>
+</html>

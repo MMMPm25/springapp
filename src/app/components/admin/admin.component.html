@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body class="bg-bluegray-900">
+  <p-toolbar styleClass="bg-bluegray-900 opacity-90">
+    <div class="p-toolbar-group-start">
+      <h5 class="text-white font-bold  text-xl"><i class="pi pi-user font-bold mr-2" style="font-size: 2rem"></i>{{display}}
+      </h5>
+    </div>
+    <div class="p-toolbar-group-center">
+      <button
+        class="p-link inline flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
+        <a routerLink="/products" class="pi pi-shopping-cart text-2xl text-gray-500 no-underline"></a>
+      </button>
+      <button
+        class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
+        <a routerLink="/user" class="pi pi-users text-2xl text-gray-500 no-underline"></a>
+      </button>
+      <button
+      class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200">
+      <a routerLink="/admin" class="pi pi-user text-2xl text-red-500 no-underline"></a>
+    </button>
+    </div>
+    <div class="p-toolbar-group-end ">
+
+
+      <button pButton class="p-button-danger text-xl font-bold border-round-2xl" (click)="logout()"><i
+          class="pi pi-sign-out f-bold"></i></button>
+
+    </div>
+  </p-toolbar>
+
+  <div class="grid mt-3">
+
+    <div class="col-12 block">
+      <p-card styleClass="bg-bluegray-900 border-1 border-white mb-2">
+
+        <label for="exampleInputEmail1" class="pi pi-search form-label text-red-600 font-bold text-2xl ">
+          <p class="text-white inline ml-2">Search</p>
+        </label>
+        <input pInputText [(ngModel)]="searchQuery" (input)="filterUsers()"
+          class="w-full border-1 text-white bg-bluegray-900" id="exampleInputEmail1">
+
+
+      </p-card>
+      <label class="ml-3 text-white">Rows per Page:</label>
+      <select [(ngModel)]="rowsPerPage" (change)="onRowsPerPageChange()" class="ml-2 p-inputtext">
+        <option *ngFor="let option of [5, 10, 20, 50]" [value]="option">{{ option }}</option>
+      </select>
+      <p-card styleClass="bg-bluegray-900 border-2 border-white">
+
+          <div class="border-bottom-3 border-white">
+            <div class="pi pi-list col-10 text-red-500 font-bold text-2xl ">
+              <p class="text-white inline ml-2 ">Admin List</p>
+            </div>
+            <div class="col-2 pl-8 text-right inline">
+              <button pButton routerLink="/adda" class="p-button-text font-bold text-red-600 text-lg bg-white border-round-2xl" ><i
+                  class="pi pi-user-plus font-bold mr-2"></i>Add </button>
+            </div>
+          </div>
+
+
+
+        <div class="mt-2">
+          <p-table [value]="paginatedUsers">
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="bg-bluegray-900 text-white" scope="col">#</th>
+                <!-- <th class="bg-bluegray-900 text-white" scope="col">id</th> -->
+                <th class="bg-bluegray-900 text-white" scope="col">FullName</th>
+                <th class="bg-bluegray-900 text-white" scope="col">Email</th>
+                <th class="bg-bluegray-900 text-white" scope="col">Password</th>
+                <th class="bg-bluegray-900 text-white">Delete</th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-item >
+
+              <tr class="text-white " [style]="{'background':'transparent'}">
+                <td>{{ item.index }}</td>
+                <!-- <td scope="row">{{ item.id }}</td> -->
+                <td>{{ item.mfullname }}</td>
+                <td>{{ item.memail }}</td>
+                <td><input pInputText class=" bg-bluegray-900 text-white" type="password" value="{{ item.mpassword }}" disabled></td>
+                <td>
+                  <button pButton class="p-button-danger text-xl border-round-2xl" (click)="deleteMuser(item.id)" ><i class="pi pi-user-minus me-2 fs-5"></i></button>
+                </td>
+              </tr>
+
+
+
+            </ng-template>
+          </p-table>
+          </div>
+          <div class="pagination-container mt-3 text-center">
+            <!-- ปุ่ม Previous -->
+            <button
+              pButton
+              class="p-button-secondary"
+              [disabled]="currentPage === 1"
+              (click)="changePage(currentPage - 1)"
+            >
+              Previous
+            </button>
+
+            <!-- แสดงหมายเลขหน้า -->
+            <ng-container *ngFor="let page of pages">
+              <button
+                pButton
+                class="p-button-text"
+                [class]="page === currentPage ? 'p-button-danger' : 'p-button-secondary'"
+                (click)="setPage(page)"
+              >
+                {{ page }}
+              </button>
+            </ng-container>
+
+            <!-- ปุ่ม Next -->
+            <button
+              pButton
+              class="p-button-secondary"
+              [disabled]="currentPage === totalPages"
+              (click)="changePage(currentPage + 1)"
+            >
+              Next
+            </button>
+          </div>
+      </p-card>
+      <!---->
+
+
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body class="bg-bluegray-900">
+  <div class="flex justify-content-center align-items-center min-h-screen">
+    <p-card [style]="{width:'400px'}" [style]="{'background':'transparent'}" styleClass="border-3 border-white">
+      <h1 class="text-center font-bold text-white">
+        <p class="text-red-600 inline">L</p>ogin
+      </h1>
+      <form [formGroup]="loginMusersForm" >
+        <div class="field">
+          <label class="text-red-600 font-bold pi pi-envelope text-lg" for="memail">
+            <p class="text-white inline">Email</p>
+          </label>
+          <input type="text" pInputText [style]="{'background':'transparent'}" formControlName="memail"
+            class="w-full text-white" id="memail" name="memail"  required
+            pattern="[a-z0-9\._%\+\-]+@[a-z0-9\.\-]+\.[a-z]{2,}$" />
+            @if(memail.invalid && (memail.dirty || memail.touched )){
+            <small class="block p-error">
+            @if(memail.hasError('required')){
+            <span>Email is required</span>
+            }@else if(memail.hasError('pattern')){
+            <span>Email is invalid</span>
+            }
+          </small>
+          }
+        </div>
+        <div class="field">
+          <label class="text-red-600 font-bold pi pi-lock" for="password">
+            <p class="text-white inline">Password</p>
+          </label>
+          <!-- <input type="password" pPassword  [(ngModel)]="login.password" [feedback]="false" [toggleMask]="true" inputId="password"
+            name="password" #password="ngModel" inputStyleClass=" w-full text-white bg-bluegray-900 " styleClass="w-full" required />
+             -->
+          <p-password formControlName="mpassword" [feedback]="false" [toggleMask]="true" inputId="mpassword"
+            name="mpassword"  inputStyleClass="w-full text-white bg-bluegray-900" styleClass="w-full"
+            required>
+          </p-password>
+          @if(mpassword.invalid && (mpassword.dirty || mpassword.touched)){
+          <small class="block p-error">Password is required</small>
+          }
+        </div>
+        <button pButton label="SIGN IN" class="w-full p-button-danger " (click)="getMuser()" [disabled]="loginMusersForm.invalid"
+          type="submit"></button>
+        <p-button label="BACK" styleClass=" w-full p-button-secondary mt-3" routerLink="/first"
+          [ngStyle]="{backgroundColor:'surface-900'}"></p-button>
+
+        <div class="mt-2 text-white">Not a Login? then<a class="no-underline text-red-600 font-bold " routerLink="/register">
+            Register</a></div>
+      </form>
+    </p-card>
+
+  </div>
+</body>
+
+</html>
